@@ -1,13 +1,30 @@
-import './App.css';
-import Sidebar from './components/sidebar/Sidebar';
+import "./App.css";
+import Sidebar from "./components/sidebar/Sidebar";
+import Chat from "./components/chat/Chat";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useState } from "react";
 
 function App() {
+  const [user , setUser] = useState(null)
   return (
     <div className="app">
-      <div className="app__body">
-        <Sidebar/>
-        <Chat/>
-      </div>  
+    {!user ? (
+      <h1>Login</h1>
+      ): (<div className="app__body">
+      <Router>
+        <Sidebar />
+        <Switch>
+          <Route path="/rooms/:roomId">
+            <Chat />
+          </Route>
+          <Route path="/">
+            <Chat />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
+    )}
+      
     </div>
   );
 }
